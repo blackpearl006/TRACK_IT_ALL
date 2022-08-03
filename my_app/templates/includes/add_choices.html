@@ -1,0 +1,26 @@
+<style>
+  .modal-content{
+  background-color: #212121;
+}
+</style>
+
+<div class="modal fade" id="Modal-addChoice-{{tracker.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ tracker.name }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Add Choices ( comma seperated )
+        <form method="POST">
+            {{ add_Choices.hidden_tag() }}
+            <br>
+            <p>{{ add_Choices.choices.label() }}</p>
+            {{ add_Choices.choices(class='form-control',placeholder="comma seperated values") }}
+            <br>
+            {{ add_Choices.submit(class="btn btn-primary")}}
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>

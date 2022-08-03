@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Add Tracker
+{% endblock %}
+
+{% block content %}
+  
+<div class="add">
+    <h2>ADD TRACKER</h2>
+    <form method="post">
+        {{ addTracker.hidden_tag() }}
+        <br>
+        {{ addTracker.name.label() }}
+        {{ addTracker.name(class='form-control',placeholder=tracker_name) }}
+        <br>        
+        {{ addTracker.description.label() }}
+        {{ addTracker.description(class='form-control',placeholder= description) }}
+        <br>
+        {{ addTracker.type.label() }}
+        <br>
+        {{ addTracker.type() }}
+        <br>
+        <br>
+        <br>
+        {{ addTracker.submit(class="btn btn-secondary")}}  <!--if its a multiple choice this submit shouild redirect to modal and the submit bubtton there should add new tracker-->
+    </form>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block title %}
+  Log
+{% endblock %}
+
+{% block content %}
+<div class="row" style="margin-top:20px;margin-left: 20px;">
+    <div class="col-7">
+        <div class="position-relative">
+            <div class="position-absolute top-10 end-0">
+                <div class="btn-group-lg"><a href="/{{ tracker.id }}/addlog" class="btn btn-primary active" aria-current="page">Add Log</a></div>
+            </div>
+        </div>
+        <h2>{{ tracker.name }} - logs</h2>
+        <br>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Note</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                {% include 'includes/log_modals.html' %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.note }}</td>
+                    {% if tracker.type=='3' %}
+                    <td>{% if log.value == 1 %} YES {% else %} NO {% endif %}</td>
+                    {% elif tracker.type=='2' %}
+                    <td> {{choice_dict[log.value]}} </td>
+                    {% elif tracker.type=='4' %}
+                    <td>{{ log.value }} °F </td>
+                    {% elif tracker.type=='5' %}
+                    <td>{{ log.value }} Cal </td>
+                    {% elif tracker.type=='6' %}
+                    <td>{{ log.value }} mins </td>
+                    {% else %}
+                    <td>{{ log.value }}</td>
+                    {% endif %}
+                    <td>
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#Modal-UpdateLog-{{log.id}}">Update</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#Modal-DeleteLog-{{log.id}}">
+                            Delete
+                        </button>
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-5">   
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>                                                                                                                                                                                                   
+        <div class="logChart" >
+            <canvas id="myChart"></canvas>
+        </div>
+
+    </div>                        
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% if type=='bar' %}
+<script>
+const data = {
+            labels: {{ choices | safe }},
+            datasets: [{
+              label: '{{tracker.description }}',
+              backgroundColor: 'rgb(255, 120, 132)',
+              borderColor: 'rgb(255, 255, 200)',
+              data: {{ value_graph  }},
+            }]
+          };
+
+          const config = {
+            type: "{{ type }}",
+            data: data,
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  title: {
+                      display: true,
+                      text: 'Number of occurence'
+                  },
+                  min: 0,
+                  ticks: {
+          // forces step size to be 50 units
+                    stepSize: 1
+                  }
+                },
+                x: {
+                    title: {
+                      display: true,
+                      text: 'tracker values'
+                  }
+                }
+              }
+            }
+          };
+
+          var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+          );
+</script>
+
+{% else %}
+<script>
+          const data = {
+            labels: {{ time_graph | safe }},
+            datasets: [{
+              label: '{{tracker.description }}',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: {{ new_value_graph  }},
+            }]
+          };
+
+          const config = {
+            type: "{{ type }}",
+            data: data,
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  title: {
+                      display: true,
+                      text: 'Logged Value'
+                  },
+                  min: 0,
+                  ticks: {
+          // forces step size to be 50 units
+                    stepSize: 1
+                  }
+                },
+                x: {
+                    title: {
+                      display: true,
+                      text: 'Timestamp'
+                  }
+                }               
+              }
+            }
+          };
+
+          var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+          );
+</script>
+{% endif %}
+
+                                                                                                                                                   
+{% endblock %}                                                                        

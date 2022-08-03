@@ -1,0 +1,113 @@
+body{
+    background-color: #212121;
+    color: white;
+}
+.carousel-item{
+    height: 100vh;
+    min-height: 300px;
+}
+.modal-content{
+    background-color: #212121;
+}
+.card{
+    border:none;
+
+    position:relative;
+    overflow:hidden;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.card:before{
+    
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:4px;
+    height:100%;
+    background-color:white;
+    transform:scaleY(1);
+    transition:all 0.5s;
+    transform-origin: bottom
+}
+
+.card:after{
+    
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:4px;
+    height:100%;
+    background-color:black;
+    transform:scaleY(0);
+    transition:all 0.5s;
+    transform-origin: bottom
+}
+
+.card:hover::after{
+    transform:scaleY(1);
+}
+td,th {
+    text-align: center;
+  }
+
+#clock {
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+.image img {
+    transition: all 0.5s
+}
+.logChart{    
+    margin-right: 15px;
+    width: 580px;
+    border: 1px solid lightgrey;
+    padding: 2px;
+}
+.dashboardChart{
+    margin-right: 0px;
+    width: 500px;
+    border: 1px solid lightgrey;
+    padding: 2px;
+}
+.add{
+    margin-top: 100px;
+    margin-left: 400px;
+    margin-right: 400px;
+}
+/* Container needed to position the button. Adjust the width as needed */
+.container2 {
+  position: relative;
+  top: 20px;
+  left: 330px;
+  width: 50%;
+}
+
+/* Make the image responsive */
+.container2 img {
+  width: 100%;
+  height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container2 .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #555;
+  color: white;
+  font-size: 30px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container2 .btn:hover {
+  background-color: black;
+}

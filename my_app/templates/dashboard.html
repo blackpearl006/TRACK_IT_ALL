@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block title %}
+  Dashboard
+{% endblock %}
+
+{% block content %}
+
+{% if tracker_len==0 %}
+
+<div class="container2">
+  <h3>YOU DONT HAVE ANY TRACKERS .....😕</h3>
+  <br>
+  <h3> ADD NEW TRACKERS..</h3>
+    <img src="{{ url_for('static',filename='images/hands.jpeg') }}" alt="Snow">
+    <button class="btn"><div class="btn-group"><a href="/addtracker" class="btn btn-primary active" aria-current="page"> Add Tracker </a></button>
+</div>
+{% else %}
+<div class="row" style="margin-top:20px;margin-left: 20px;">
+    <div class="col-7">
+        <div class="position-relative">
+            <div class="position-absolute top-10 end-0">
+                <div class="btn-group-lg"><a href="/addtracker" class="btn btn-primary active" aria-current="page">Add Tracker</a></div>
+            </div>
+        </div>
+        <h2>TRACKERS IN USE</h2>
+        <p>Click on the tracker to find its logs</p>
+        <br>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Last Modified</th>
+                    <th scope="col">Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tracker in trackers %}
+                {% include 'includes/tracker_modals.html' %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="/{{tracker.id}}/log" class="btn" style="width: 200px;border-radius: 15px;border-style: dotted ;color: white;"><strong>{{tracker.name}}</strong></a></td>
+                    <td>{{ tracker.description }}</td>
+                    {% if today - tracker.last_modified==0 %}
+                    <td> Today </td>
+                    {% elif today - tracker.last_modified == 1  %}
+                    <td>Yesterday</td>
+                    {% elif 7 >= today - tracker.last_modified %}
+                    <td>this week</td>
+                    {% elif 30 >= today - tracker.last_modified %}
+                    <td>this month</td>
+                    {% else %}
+                    <td>long ago</td>
+                    {% endif %}
+                    <td>
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#Modal-Update-{{tracker.id}}">
+                            Update
+                        </button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#Modal-Delete-{{tracker.id}}">
+                            Delete
+                        </button>
+                        <!--<button type="button" class="btn btn-outline-info">Update</button>
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                        -->
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-5">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="dashboardChart" >
+            <canvas id="myChart" ></canvas>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+        const data = {
+            labels: {{ trackers_name | safe }},
+            datasets: [{
+              label: 'Trackers',
+              backgroundColor: '#8F00FF',
+              borderColor: 'rgb(255, 99, 132)',
+              data: {{ log_count  }},
+            }]
+          };
+
+          const config = {
+            type: "bar",
+            data: data,
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  title: {
+                      display: true,
+                      text: 'Number of logs'
+                  },
+                  min: 0,
+                  ticks: {
+          // forces step size to be 50 units
+                    stepSize: 1
+                  }
+                },
+                x: {
+                    title: {
+                      display: true,
+                      text: 'tracker names'
+                  }
+                }
+              }
+            }
+          };
+
+          var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+          );
+</script>
+    </div>
+</div>
+{% endif %}  
+
+{% endblock %}

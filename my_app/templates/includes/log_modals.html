@@ -1,0 +1,77 @@
+<style>
+  .modal-content{
+  background-color: #212121;
+}
+</style>
+
+<div class="modal fade" id="Modal-DeleteLog-{{log.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Log</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          {{ delete_log.hidden_tag() }}
+          Do you really want to delete this log 
+          {{ log.value }} @ {{ log.timestamp }}
+          <input id="deleted_log" name="deleted_log" type="hidden" value="{{ log.id }}">
+          {{ delete_log.submit(class="btn btn-secondary")}}     
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="Modal-UpdateLog-{{log.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ tracker.name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">Change value only
+      <form method="POST">
+          <input id="updated_log" name="updated_log" type="hidden" value="{{ log.id }}">
+          {{ update_log.hidden_tag() }}
+          <br>
+            {% if tracker.type == '3' %}
+
+                {{ update_log.value.label() }}
+                <br>
+                <input class="form-check-input" type="radio" name="value" id="exampleRadios1" value=1 >
+                <label class="form-check-label" for="exampleRadios1">
+                  Yes
+                </label>
+                <br>
+                <input class="form-check-input" type="radio" name="value" id="exampleRadios2" value=2>
+                <label class="form-check-label" for="exampleRadios2">
+                  No
+                </label>
+                <br>
+
+            {% elif tracker.type == '2' %}
+                  <select class="form-control"  aria-label="Default select example" name="value" required>
+                    {% for i in choices %}
+                    <option value={{choices.index(i)+1}}>{{i}}</option>
+                    {% endfor %}                  
+                  </select>
+                  <br>
+            {% else %}
+
+                  {{ update_log.value.label() }}
+                  {{ update_log.value(class='form-control',placeholder='log.value') }}
+                  
+            {% endif %}
+          <br>        
+          <p>{{ update_log.note.label() }}</p>
+          {{ update_log.note(class='form-control',placeholder= log.note) }}
+          <br>
+          {{ update_log.submit(class="btn btn-primary")}}
+      </form>
+    </div>
+  </div>
+</div>
+</div>

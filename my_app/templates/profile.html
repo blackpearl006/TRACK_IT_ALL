@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Profile
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    
+    <div class="row d-flex justify-content-center">
+        
+        <div class="col-md-7">
+            
+            <div class="card p-3 py-4" style="background-color:lightslategray;">
+                
+                <div class="image text-center">
+                    <img src="{{ url_for('static',filename='images/download.png') }}" width="100" class="rounded-circle">
+                </div>
+                
+                <div class="text-center mt-3">
+                    <span class="bg-secondary p-1 px-4 rounded text-center">{{current_user.role}}</span>
+                    <div class="profile" style="color: black;">
+                        Username : <p>{{ current_user.username }}</p>
+                        Email : <p>{{ current_user.email}} </p>
+                        Phone : <p>{{ current_user.phone_num }}</p>
+                        City : <p>{{ current_user.city }}</p>
+                        Social Media : <p>{{ current_user.social }}</p>
+                    </div>
+                    {% include 'includes/profile_modals.html' %}
+                    <div class="buttons">
+                        
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#Modal-Profile">
+                            Update
+                        </button>                        <a class="btn btn-secondary px-4 ms-3" href="{{url_for('logout_page')}}">Logout</a>
+
+                    </div>
+                    
+                </div>
+                
+               
+                
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
+{% endblock %}

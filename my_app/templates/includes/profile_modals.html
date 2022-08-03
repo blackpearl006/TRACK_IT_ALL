@@ -1,0 +1,43 @@
+<style>
+    .modal-content{
+    background-color: #212121;
+}
+</style>
+<div class="modal fade" id="Modal-Profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ current_user.username }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Change All
+        <form method="POST">
+            <input id="updated_profile" name="updated_profile" type="hidden" value="{{ current_user.id }}">
+            {{ update_profile.hidden_tag() }}
+            <br>
+            <p>{{ update_profile.username.label() }}</p>
+            {{ update_profile.username(class='form-control',placeholder=current_user.username) }}
+            <br>        
+            <p>{{ update_profile.email.label() }}</p>
+            {{ update_profile.email(class='form-control',placeholder= current_user.email) }}
+            <br>
+            <p>{{ update_profile.target.label() }}</p>
+            {{ update_profile.target(class='form-control',placeholder= current_user.target) }}
+            <br>
+            <p>{{ update_profile.city.label() }}</p>
+            {{ update_profile.city(class='form-control',placeholder= current_user.city) }}
+            <br>
+            <p>{{ update_profile.social.label() }}</p>
+            {{ update_profile.social(class='form-control',placeholder= current_user.social) }}
+            <br>
+            <p>{{ update_profile.phone_num.label() }}</p>
+            {{ update_profile.phone_num(class='form-control',placeholder= current_user.phone_num) }}
+            <br>
+
+
+            {{ update_profile.submit(class="btn btn-primary")}}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

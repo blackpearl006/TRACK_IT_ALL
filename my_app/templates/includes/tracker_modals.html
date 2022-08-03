@@ -1,0 +1,50 @@
+<style>
+    .modal-content{
+    background-color: #212121;
+}
+</style>
+<!-- Modal -->
+<div class="modal fade" id="Modal-Update-{{tracker.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ tracker.name }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">You can change name and description
+        <form method="POST">
+            <input id="updated_tracker" name="updated_tracker" type="hidden" value="{{ tracker.name }}"><!-- tracker.id will work too-->
+            {{ update_tracker.hidden_tag() }}
+            <br>
+            <p>{{ update_tracker.name.label() }}</p>
+            {{ update_tracker.name(class='form-control',placeholder=tracker.name) }}
+            <br>        
+            <p>{{ update_tracker.description.label() }}</p>
+            {{ update_tracker.description(class='form-control',placeholder= tracker.description) }}
+            <br>
+            {{ update_tracker.submit(class="btn btn-primary")}}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="modal fade" id="Modal-Delete-{{tracker.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ tracker.name }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form method="POST">
+            {{ delete_tracker.hidden_tag() }}
+            <p>Are you sure you want to delete {{ tracker.name }} having "x" logs</p>
+            <br>
+            <input id="deleted_tracker" name="deleted_tracker" type="hidden" value="{{ tracker.name }}"><!-- tracker.id will work too-->
+            {{ delete_tracker.submit(class="btn btn-secondary")}}
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
