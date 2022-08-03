@@ -13,8 +13,8 @@ Along with Flask i have used flask-sqlalchemy to query/connect to the database a
 How to run the program
 
 
-*open file brower and locate the code file / download it (.zip format available in replit.com)
-*if the file is in .zip format unzip it to find main.py and a folder my_app 
+##open file brower and locate the code file / download it (.zip format available in replit.com)
+##if the file is in .zip format unzip it to find main.py and a folder my_app 
 *open the code on your choice of editor or in the terminal 
 *create a virtual environment and activate it 
 *take the main.py file outside of the folder my_app 
