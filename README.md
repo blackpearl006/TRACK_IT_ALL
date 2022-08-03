@@ -35,15 +35,9 @@ pip install -r my_app/command.txt
 code for running the application:
 
 python main.py
-Help
-
-Any advise for common problems or issues.
-
-command to run if program contains helper info
 
 
 Author
 
 NINAD AITHAL
-21f1006030@student.onlinedegree.iitm.ac.in
-Modern Application Development - 1
+
