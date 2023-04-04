@@ -1,5 +1,5 @@
 # TRACK_IT_ALL
-Day to day activities tracking app at youbr fingertip
+Day to day activities tracking app at your fingertip
 
 TRACK IT ALL
 
